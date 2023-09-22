@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 // Models
 use App\Models\Post;
 use App\Models\Type;
+use App\Models\Technology;
 
 // Requests
 use App\Http\Requests\Post\StorePostRequest;
@@ -31,7 +32,9 @@ class PostController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.posts.create', compact('types'));
+        $technologies = Technology::all();
+
+        return view('admin.posts.create', compact('types', 'technologies'));
     }
 
     /**
@@ -45,10 +48,19 @@ class PostController extends Controller
             'title' => $formData['title'],
             'slug' => str()->slug($formData['title']),
             'content' => $formData['content'],
-            'type_id' => $formData['type_id'],
+            'type_id' => isset($formData['type_id']) ? $formData['type_id'] : null,
+
         ]);
 
-        return redirect()->route('admin.posts.index');
+        if (isset($formData['technologies'])) {
+            foreach ($formData['technologies'] as $technologyId) {
+                                                //  post_id  |  technology_id
+                                                // ----------+---------
+                $post->technologies()->attach($technologyId);  // $post->id |  $technologyId
+            }
+        }
+
+        return redirect()->route('admin.posts.show', compact('post'));
     }
 
     /**
@@ -64,8 +76,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        
-        return view('admin.posts.edit', compact('post'));
+        $types = Type::all();
+        $technologies = Technology::all();
+
+        return view('admin.posts.edit', compact('post', 'types', 'technologies'));
     }
 
     /**
@@ -79,7 +93,15 @@ class PostController extends Controller
             'title' => $formData['title'],
             'slug' => str()->slug($formData['title']),
             'content' => $formData['content'],
+            'type_id' => $formData['type_id'],
         ]);
+
+        if (isset($formData['technologies'])) {
+            $post->technologies()->sync($formData['technologies']);
+        }
+        else {
+            $post->technologies()->detach();
+        }
 
         return redirect()->route('admin.posts.show', compact('post'));
     }
@@ -87,11 +109,11 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-public function destroy(Post $post)
-{
-    $post->delete();
+    public function destroy(Post $post)
+    {
+        $post->delete();
 
-    return redirect()->route('admin.posts.index');
-}
-    
+        return redirect()->route('admin.posts.index');
+
+    }
 }

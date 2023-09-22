@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', $type->title)
+@section('page-title', 'Modifica '.$type->title)
 
 @section('main-content')
     <div class="row">
@@ -19,13 +19,13 @@
                 @csrf
                 @method('PUT')
 
-                <div class="mb-4">
-                    <label for="title">Titolo</label>
+                <div>
+                    <label for="">Titolo</label>
                     <input type="text" name="title" required maxlength="255" value="{{ old('title', $type->title) }}">
                 </div>
-                
-                <div class="justify-content-center">
-                    <button type="submit" class="btn btn-success mt-4">
+
+                <div>
+                    <button type="submit" class="btn btn-warning">
                         Aggiorna
                     </button>
                 </div>
@@ -33,4 +33,3 @@
         </div>
     </div>
 @endsection
-

@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->unsignedBigInteger('type_id')->nullable();
+            $table->unsignedBigInteger('type_id')->nullable()->after('content');
 
-            $table->foreign('type_id')
-                ->references('id')
-                ->on('types')
+            $table->foreign('type_id')      // Colonna della tabella posts che conterrà il vincolo di FK
+                ->references('id')              // Colonna della tabella a cui mi riferisco
+                ->on('types')              // Tabella a cui mi riferisco
                 ->onUpdate('cascade')
                 ->onDelete('set null');
         });
@@ -28,9 +28,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            
+            // Rimuovo la FK
             $table->dropForeign(['type_id']);
 
+            // Rimuovo la colonna
             $table->dropColumn('type_id');
         });
     }

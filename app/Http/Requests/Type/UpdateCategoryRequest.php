@@ -1,17 +1,20 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Type;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateProjectRequest extends FormRequest
+// Helpers
+use Illuminate\Support\Facades\Auth;
+
+class UpdateTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -19,14 +22,10 @@ class CreateProjectRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'name' => 'required|max:64',
-            'surname' => 'required|max:64',
-            'age' => 'required|min:12|max:120',
-            'profession' => 'required|max:128',
-            'nazionality' => 'required|max:64',
+            'title' => 'required|max:255'
         ];
     }
 }

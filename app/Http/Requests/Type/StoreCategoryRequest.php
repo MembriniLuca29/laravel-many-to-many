@@ -4,9 +4,10 @@ namespace App\Http\Requests\Type;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
+// Helpers
 use Illuminate\Support\Facades\Auth;
-class UpdateTypeRequest extends FormRequest
+
+class StoreTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

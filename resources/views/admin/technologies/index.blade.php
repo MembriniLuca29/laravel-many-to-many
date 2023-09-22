@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('page-title', 'Tutti i technology')
+@section('page-title', 'Tutte le tecnologie')
 
 @section('main-content')
     <div class="row">
         <div class="col">
-            <a href="{{ route('admin.technologys.create') }}" class="btn w-100 btn-success mb-5">
+            <a href="{{ route('admin.technologies.create') }}" class="btn w-100 btn-success mb-5">
                 + Aggiungi
             </a>
 
@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($technologys as $technology)
+                    @foreach ($technologies as $technology)
                         <tr>
                             <th scope="row">
                                 {{ $technology->id }}
@@ -31,13 +31,13 @@
                                 {{ $technology->slug }}
                             </td>
                             <td>
-                                <a href="{{ route('admin.technologys.show', ['technology' => $technology->id]) }}" class="btn btn-primary">
+                                <a href="{{ route('admin.technologies.show', ['technology' => $technology->id]) }}" class="btn btn-primary">
                                     Vedi
                                 </a>
-                                <a href="{{ route('admin.technologys.edit', ['technology' => $technology->id]) }}" class="btn btn-warning">
+                                <a href="{{ route('admin.technologies.edit', ['technology' => $technology->id]) }}" class="btn btn-warning">
                                     Modifica
                                 </a>
-                                <form action="{{ route('admin.technologys.destroy', ['technology' => $technology->id]) }}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questa categoria?');">
+                                <form action="{{ route('admin.technologies.destroy', ['technology' => $technology->id]) }}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questa categoria?');">
                                     @csrf
                                     @method('DELETE')
 

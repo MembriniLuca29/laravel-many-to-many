@@ -4,7 +4,6 @@ namespace App\Http\Requests\Post;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-
 // Helpers
 use Illuminate\Support\Facades\Auth;
 
@@ -26,8 +25,11 @@ class UpdatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|max:255', 
+            'title' => 'required|max:255',
             'content' => 'required',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|array',
+            'tags.*' => 'exists:tags,id',
         ];
     }
 }

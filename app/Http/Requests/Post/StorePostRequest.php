@@ -27,7 +27,9 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'content' => 'required',
-            'type_id' => 'nullable|exists:types,id',
+            'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|array',
+            'tags.*' => 'exists:tags,id',
         ];
     }
 }

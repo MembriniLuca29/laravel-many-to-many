@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('page-title', $post->title)
+@section('page-title', 'Modifica '.$post->title)
 
 @section('main-content')
     <div class="row">
-        <div class="col">
+        <div class="col bg-info-subtle">
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul>
@@ -19,27 +19,76 @@
                 @csrf
                 @method('PUT')
 
-                <div class="mb-4">
-                    <label for="title">Titolo</label>
-                    <input type="text" name="title" required maxlength="255" value="{{ old('title', $post->title) }}">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Titolo</label>
+                    <input type="text" class="form-control" id="title" name="title" required maxlength="255" value="{{ old('title', $post->title) }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="content" class="form-label">Contenuto</label>
+                    <textarea class="form-control" id="content" name="content" rows="3">{{ old('content', $post->content) }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="type_id" class="form-label">Categoria</label>
+                    <select class="form-select" id="type_id" name="type_id">
+                        <option value="">Seleziona una categoria...</option>
+                        @foreach ($types as $type)
+                            <option
+                                {{-- Il value sarà l'ID della categoria --}}
+                                value="{{ $type->id }}"
+
+                                {{-- Aggiungo l'attributo selected sulla option che era stata precedentemente selezionata --}}
+                                @if (old('type_id', $post->type_id) == $type->id)
+                                    selected
+                                @endif
+                                {{-- {{ old('type_id') == $type->id ? 'selected' : '' }} --}}
+                                >
+                                {{ $type->title }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label d-block">Tag</label>
+                    @foreach ($tags as $tag)
+                        <div class="form-check form-check-inline">
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                name="tags[]"
+                                id="tag-{{ $tag->id }}"
+                                value="{{ $tag->id }}"
+                                @if (
+                                    $errors->any()
+                                )
+                                    {{-- Qui ci entro solo quando ho già inviato il form, ma la validazione non è andata a buon fine --}}
+
+                                    @if (
+                                        in_array(
+                                            $tag->id,
+                                            old('tags', [])
+                                        )
+                                    )
+                                        checked
+                                    @endif
+                                @elseif (
+                                    // $tag->id compare in quelli precedentemente associati al post
+                                    $post->tags->contains($tag)
+                                )
+                                    checked
+                                @endif
+                                >
+                            <label class="form-check-label" for="tag-{{ $tag->id }}">
+                                {{ $tag->title }}
+                            </label>
+                        </div>
+                    @endforeach
                 </div>
 
                 <div>
-                    <label for="content">Contenuto</label>
-                    <textarea name="content" rows="3" required>{{ old('content', $post->content) }}</textarea>
-                </div>
-                {{-- <div class="mt-4">
-                    <label for="type_id" class="form-label">type</label>
-                    <select name="type_id" id="type_id" class="form-select">
-                        <option value="{{old('type_id',$type->id }}" selected>{{ old('title',$type->title }}</option>
-                        @foreach ($types as $type)
-                            <option value="{{ $type->id }}">{{ $type->title }}</option>
-                        @endforeach
-                    </select>
-                </div> --}}
-
-                <div class="justify-content-center">
-                    <button type="submit" class="btn btn-success mt-4">
+                    <button type="submit" class="btn btn-warning">
                         Aggiorna
                     </button>
                 </div>
@@ -47,4 +96,3 @@
         </div>
     </div>
 @endsection
-

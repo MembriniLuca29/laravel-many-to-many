@@ -22,7 +22,7 @@ class TechnologySeeder extends Seeder
             Technology::truncate();
         });
 
-        $technologys = [
+        $technologies = [
             'Bello',
             'Figo',
             'Gu',
@@ -31,7 +31,7 @@ class TechnologySeeder extends Seeder
             'Brutto'
         ];
 
-        foreach ($technologys as $title) {
+        foreach ($technologies as $title) {
             $slug = str()->slug($title);
 
             Technology::create([

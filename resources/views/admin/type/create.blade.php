@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', 'aggiungi categoria')
+@section('page-title', 'Aggiungi un tipo')
 
 @section('main-content')
     <div class="row">
@@ -18,13 +18,13 @@
             <form action="{{ route('admin.types.store') }}" method="post">
                 @csrf
 
-                <div class="mb-4">
-                    <label for="" >Titolo</label>
-                    <input type="text" name="title" required maxlength="255" value='{{ old('title') }}'>
+                <div>
+                    <label for="">Titolo</label>
+                    <input type="text" name="title" required maxlength="255" value="{{ old('title') }}">
                 </div>
 
-                <div class="justify-content-center">
-                    <button type="submit" class="btn btn-success mt-4">
+                <div>
+                    <button type="submit" class="btn btn-success">
                         + Aggiungi
                     </button>
                 </div>

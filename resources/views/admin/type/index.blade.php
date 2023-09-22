@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', 'Tutti i type')
+@section('page-title', 'Tutte i tipi')
 
 @section('main-content')
     <div class="row">
@@ -20,7 +20,6 @@
                 </thead>
                 <tbody>
                     @foreach ($types as $type)
-
                         <tr>
                             <th scope="row">
                                 {{ $type->id }}
@@ -31,18 +30,18 @@
                             <td>
                                 {{ $type->slug }}
                             </td>
-                            <td class="button-column ">
+                            <td>
                                 <a href="{{ route('admin.types.show', ['type' => $type->id]) }}" class="btn btn-primary">
                                     Vedi
                                 </a>
                                 <a href="{{ route('admin.types.edit', ['type' => $type->id]) }}" class="btn btn-warning">
                                     Modifica
                                 </a>
-                                <form action="{{ route('admin.types.destroy', ['type' => $type->id]) }}" method="post" onsubmit="return confirm('sei sicuro di voler eliminare questo type?')">
+                                <form action="{{ route('admin.types.destroy', ['type' => $type->id]) }}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questa categoria?');">
                                     @csrf
                                     @method('DELETE')
 
-                                    <button class="btn btn-danger" type="submit">
+                                    <button type="submit" class="btn btn-danger">
                                         Elimina
                                     </button>
                                 </form>

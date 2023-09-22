@@ -5,49 +5,68 @@
 @section('main-content')
     <div class="row">
         <div class="col">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Titolo</th>
-                        <th scope="col">Slug</th>
-                        <th scope="col">contenuto</th>
-                        <th scope="col">Azioni</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        <tr>
-                            <th scope="row">
-                                {{ $post->id }}
-                            </th>
-                            <td>
-                                {{ $post->title }}
-                            </td>
-                            <td>
-                                {{ $post->slug }}
-                            </td>
-                            <td>
-                                {{ $post->content }}
-                            </td>
-                            <td class="button-column">
-                                <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary">
-                                    Vedi
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        <h1>
+                            {{ $post->title }}
+                        </h1>
+                        <h6>
+                            Slug: {{ $post->slug }}
+                        </h6>
+                        <div>
+                            Categoria:
+                            @if ($post->category)
+                                <a href="{{ route('admin.categories.show', ['category' => $post->category->id]) }}">
+                                    {{ $post->category->title }}
                                 </a>
-                                <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-warning">
-                                    Modifica
-                                </a>
-                                <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post" onsubmit="return confirm('sei sicuro di voler eliminare questo progetto?')">
-                                    @csrf
-                                    @method('DELETE')
+                            @else
+                                -
+                            @endif
+                        </div>
+                        <div>
 
-                                    <button class="btn btn-danger" type="submit">
-                                        Elimina
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                </tbody>
-            </table>
+                            <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-warning">
+                                Modifica
+                            </a>
+                            <form class="d-inline-block" action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo post?');">
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger">
+                                    Elimina
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <p>
+                        {{ $post->content }}
+                    </p>
+
+                    <hr>
+
+                    <div>
+                        <h3>Technology:</h3>
+                        <div>
+                            @if ($post->technologies)
+                                @forelse ($post->technologies as $technology)
+                                    <span class="badge rounded-pill text-bg-primary">
+                                        {{ $technology->title }}
+                                    </span>
+                                @empty
+                                    Nessuna technology associata a questo post
+                                @endforelse
+                            @else
+                                Nessuna technology associata a questo post
+                            @endif
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
         </div>
     </div>
 @endsection

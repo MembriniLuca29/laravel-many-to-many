@@ -13,11 +13,19 @@ class Post extends Model
         'title',
         'slug',
         'content',
-        'type_id'
+        'category_id'
     ];
 
+    /*
+        Relationships
+    */
     public function type()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(type::class);
+    }
+
+    public function types()
+    {
+        return $this->belongsToMany(Type::class);
     }
 }

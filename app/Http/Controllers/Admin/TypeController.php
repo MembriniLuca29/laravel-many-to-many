@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\admin;
-
-
+namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 
-
-//models
-
+// Models
 use App\Models\Type;
 
-//request 
+// Requests
 use App\Http\Requests\Type\StoreTypeRequest;
 use App\Http\Requests\Type\UpdateTypeRequest;
-
 
 class TypeController extends Controller
 {
@@ -25,7 +20,6 @@ class TypeController extends Controller
         $types = Type::all();
 
         return view('admin.type.index', compact('types'));
-
     }
 
     /**
@@ -33,7 +27,7 @@ class TypeController extends Controller
      */
     public function create()
     {
-        return view('admin.type.create');
+        return view('admin.types.create');
     }
 
     /**
@@ -41,7 +35,6 @@ class TypeController extends Controller
      */
     public function store(StoreTypeRequest $request)
     {
-
         $formData = $request->validated();
 
         $type = Type::create([
@@ -49,15 +42,15 @@ class TypeController extends Controller
             'slug' => str()->slug($formData['title']),
         ]);
 
-        return view('admin.type.show', compact('type'));
+        return redirect()->route('admin.types.show', compact('type'));
     }
 
     /**
      * Display the specified resource.
      */
     public function show(Type $type)
-    {   
-        return view('admin.type.show', compact('type'));
+    {
+        return view('admin.types.show', compact('type'));
     }
 
     /**
@@ -65,7 +58,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        return view('admin.type.edit', compact('type'));
+        //
     }
 
     /**
@@ -73,14 +66,7 @@ class TypeController extends Controller
      */
     public function update(UpdateTypeRequest $request, Type $type)
     {
-        $formData = $request->validated();
-
-        $type->update([
-            'title' => $formData['title'],
-            'slug' => str()->slug($formData['title']),
-        ]);
-
-        return view('admin.type.show', compact('type'));
+        //
     }
 
     /**
@@ -89,10 +75,7 @@ class TypeController extends Controller
     public function destroy(Type $type)
     {
         $type->delete();
-    
-        $types = Type::all();
-        
-        return view('admin.type.index', compact('types'));
+
+        return redirect()->route('admin.types.index');
     }
-    
 }

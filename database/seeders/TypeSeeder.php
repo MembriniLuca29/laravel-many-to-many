@@ -2,23 +2,38 @@
 
 namespace Database\Seeders;
 
-use App\Models\Type;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+// Models
+use App\Models\Type;
+
+// Helpers
 use Illuminate\Support\Facades\Schema;
+
 class TypeSeeder extends Seeder
 {
+ 
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
+        Schema::withoutForeignKeyConstraints(function () {
+            Type::truncate();
+        });
 
-        Type::truncate();
+        $types = [
+            'Frontend',
+            'Backend',
+            'PHP',
+            'HTML',
+            'CSS',
+            'JavaScript',
+            'ChatGPT',
+            'Boolean',
+            'Teacher',
+            'Studenti',
+        ];
 
-        Schema::enableForeignKeyConstraints();
-
-        for ($i = 0; $i < 10; $i++) {
-            $title = substr(fake()->word(), 0, 255);
+        foreach ($types as $title) {
             $slug = str()->slug($title);
 
             Type::create([
@@ -26,5 +41,6 @@ class TypeSeeder extends Seeder
                 'slug' => $slug
             ]);
         }
+    
     }
 }

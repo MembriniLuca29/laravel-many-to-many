@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page-title', 'Aggiungi un tag')
+@section('page-title', 'Aggiungi una tecnologia')
 
 @section('main-content')
     <div class="row">
@@ -15,7 +15,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('admin.technologys.store') }}" method="post">
+            <form action="{{ route('admin.technologies.store') }}" method="post">
                 @csrf
 
                 <div>

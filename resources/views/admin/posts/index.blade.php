@@ -15,6 +15,7 @@
                         <th scope="col">#</th>
                         <th scope="col">Titolo</th>
                         <th scope="col">Slug</th>
+                        <th scope="col">Categoria</th>
                         <th scope="col">Azioni</th>
                     </tr>
                 </thead>
@@ -31,24 +32,24 @@
                                 {{ $post->slug }}
                             </td>
                             <td>
-                                @if ($post->type)
-                                {{ $post->type->title }}
-                            @else
-                                -
-                            @endif
+                                @if ($post->category)
+                                    {{ $post->category->title }}
+                                @else
+                                    -
+                                @endif
                             </td>
-                            <td class="button-column ">
+                            <td>
                                 <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary">
                                     Vedi
                                 </a>
                                 <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-warning">
                                     Modifica
                                 </a>
-                                <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post" onsubmit="return confirm('sei sicuro di voler eliminare questo progetto?')">
+                                <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post" onsubmit="return confirm('Sei sicuro di voler eliminare questo post?');">
                                     @csrf
                                     @method('DELETE')
 
-                                    <button class="btn btn-danger" type="submit">
+                                    <button type="submit" class="btn btn-danger">
                                         Elimina
                                     </button>
                                 </form>

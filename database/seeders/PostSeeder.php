@@ -17,19 +17,27 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::truncate();
+
+    
+    Post::truncate();
+
+ 
 
         for ($i = 0; $i < 30; $i++) {
-            $title = substr(fake()->word(), 0, 255);
+            $title = substr(fake()->sentence(), 0, 255);
             $slug = str()->slug($title);
             $content = fake()->paragraph();
-            $randomType = Type::inRandomOrder()->first();
+
+            $randomTypeId = null;
+            if (fake()->boolean()) {
+                $randomTypeId = Type::inRandomOrder()->first()->id;
+            }
 
             Post::create([
                 'title' => $title,
                 'slug' => $slug,
                 'content' => $content,
-                'type_id'=> $randomType->id
+                'type_id' => $randomTypeId
             ]);
         }
     }
