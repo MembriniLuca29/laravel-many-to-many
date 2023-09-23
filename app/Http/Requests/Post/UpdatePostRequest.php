@@ -27,9 +27,9 @@ class UpdatePostRequest extends FormRequest
         return [
             'title' => 'required|max:255',
             'content' => 'required',
-            'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|array',
-            'tags.*' => 'exists:tags,id',
+            'type_id' => 'nullable|exists:categories,id',
+            'texhnologies' => 'nullable|array',
+            'texhnologies.*' => 'exists:texhnologies,id',
         ];
     }
 }

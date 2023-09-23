@@ -27,7 +27,7 @@
                                 <a class="nav-link" href="{{ route('admin.types.index') }}">Type</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.posts.index') }}">Post</a>
+                                <a class="nav-link" href="{{ route('admin.posts.index') }}">Project</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.technologies.index') }}">Technology</a>

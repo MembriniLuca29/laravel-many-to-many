@@ -51,15 +51,15 @@
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label d-block">Tag</label>
-                    @foreach ($tags as $tag)
+                    <label class="form-label d-block">technology</label>
+                    @foreach ($technologies as $technology)
                         <div class="form-check form-check-inline">
                             <input
                                 class="form-check-input"
                                 type="checkbox"
-                                name="tags[]"
-                                id="tag-{{ $tag->id }}"
-                                value="{{ $tag->id }}"
+                                name="technologies[]"
+                                id="technology-{{ $technology->id }}"
+                                value="{{ $technology->id }}"
                                 @if (
                                     $errors->any()
                                 )
@@ -67,21 +67,21 @@
 
                                     @if (
                                         in_array(
-                                            $tag->id,
-                                            old('tags', [])
+                                            $technology->id,
+                                            old('technologies', [])
                                         )
                                     )
                                         checked
                                     @endif
                                 @elseif (
-                                    // $tag->id compare in quelli precedentemente associati al post
-                                    $post->tags->contains($tag)
+                                    // $technology->id compare in quelli precedentemente associati al post
+                                    $post->technologies->contains($technology)
                                 )
                                     checked
                                 @endif
                                 >
-                            <label class="form-check-label" for="tag-{{ $tag->id }}">
-                                {{ $tag->title }}
+                            <label class="form-check-label" for="technology-{{ $technology->id }}">
+                                {{ $technology->title }}
                             </label>
                         </div>
                     @endforeach

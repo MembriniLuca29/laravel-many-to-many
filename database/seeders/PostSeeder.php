@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
+use Illuminate\Support\Facades\DB; 
 
 // Models
 use App\Models\Post;
@@ -18,9 +19,12 @@ class PostSeeder extends Seeder
     public function run(): void
     {
 
-    
-    Post::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        
+        Post::truncate();
 
+        // Riabilita i controlli sulle chiavi esterne
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
  
 
         for ($i = 0; $i < 30; $i++) {

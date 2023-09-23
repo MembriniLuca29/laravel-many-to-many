@@ -14,6 +14,8 @@ class Type extends Model
         'slug'
     ];
 
+
+    protected $table = 'types'; 
     /*
         Relationships
     */

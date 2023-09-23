@@ -21,11 +21,11 @@ class Post extends Model
     */
     public function type()
     {
-        return $this->belongsTo(type::class);
+        return $this->belongsTo(Type::class);
     }
 
-    public function types()
+    public function technologies()
     {
-        return $this->belongsToMany(Type::class);
+        return $this->belongsToMany(Technology::class);
     }
 }

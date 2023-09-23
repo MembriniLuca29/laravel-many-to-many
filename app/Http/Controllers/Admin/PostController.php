@@ -48,8 +48,7 @@ class PostController extends Controller
             'title' => $formData['title'],
             'slug' => str()->slug($formData['title']),
             'content' => $formData['content'],
-            'type_id' => isset($formData['type_id']) ? $formData['type_id'] : null,
-
+            'type_id' => $formData['type_id'],
         ]);
 
         if (isset($formData['technologies'])) {
