@@ -30,6 +30,7 @@ class StorePostRequest extends FormRequest
             'type_id' => 'nullable|exists:types,id',
             'technologies' => 'nullable|array',
             'technologies.*' => 'exists:technologies,id',
+            'cover_img' => 'nullable|image|max:4096',
         ];
     }
 }

@@ -49,6 +49,7 @@ class PostController extends Controller
             'slug' => str()->slug($formData['title']),
             'content' => $formData['content'],
             'type_id' => $formData['type_id'],
+            // 'cover_img' => $formData
         ]);
 
         if (isset($formData['technologies'])) {
